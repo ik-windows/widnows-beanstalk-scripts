@@ -1,0 +1,1 @@
+. "C:\Program Files\Amazon\ElasticBeanstalk\Tools\ServiceActuator.ps1"

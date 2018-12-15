@@ -1,0 +1,85 @@
+{
+  "IsEnabled": true,
+  "EngineConfiguration": {
+    "Components": [
+      {
+        "FullName": "AWS.EC2.Windows.CloudWatch.CustomLog.CustomLogInputComponent,AWS.EC2.Windows.CloudWatch",
+        "Id": "IISLogs",
+        "Parameters": {
+          "CultureName": "en-US",
+          "Encoding": "UTF-8",
+          "Filter": "u_ex*.log",
+          "LineCount": "3",
+          "LogDirectoryPath": "C:\\inetpub\\logs\\LogFiles\\W3SVC1",
+          "TimeZoneKind": "UTC",
+          "TimestampFormat": "yyyy-MM-dd HH:mm:ss"
+        }
+      },
+      {
+        "FullName": "AWS.EC2.Windows.CloudWatch.CustomLog.CustomLogInputComponent,AWS.EC2.Windows.CloudWatch",
+        "Id": "EBDeployLog",
+        "Parameters": {
+          "CultureName": "en-US",
+          "Encoding": "UTF-8",
+          "Filter": "AWSDeployment.log",
+          "LogDirectoryPath": "C:\\Program Files\\Amazon\\ElasticBeanstalk\\logs",
+          "TimeZoneKind": "UTC",
+          "TimestampFormat": "MM/dd/yyyy HH:mm:ss"
+        }
+      },
+      {
+        "FullName": "AWS.EC2.Windows.CloudWatch.CustomLog.CustomLogInputComponent,AWS.EC2.Windows.CloudWatch",
+        "Id": "EBHooksLog",
+        "Parameters": {
+          "CultureName": "en-US",
+          "Encoding": "UTF-8",
+          "Filter": "Hooks.log",
+          "LogDirectoryPath": "C:\\Program Files\\Amazon\\ElasticBeanstalk\\logs",
+          "TimeZoneKind": "UTC",
+          "TimestampFormat": "MM/dd/yyyy HH:mm:ss"
+        }
+      },
+      {
+        "FullName": "AWS.EC2.Windows.CloudWatch.CloudWatchLogsOutput,AWS.EC2.Windows.CloudWatch",
+        "Id": "IISLogGroup",
+        "Parameters": {
+          "AccessKey": "",
+          "LogGroup": "/aws/elasticbeanstalk/%%ENVIRONMENT_NAME%%/IIS-Log",
+          "LogStream": "{instance_id}",
+          "Region": "%%REGION%%",
+          "SecretKey": ""
+        }
+      },
+      {
+        "FullName": "AWS.EC2.Windows.CloudWatch.CloudWatchLogsOutput,AWS.EC2.Windows.CloudWatch",
+        "Id": "EBDeployLogGroup",
+        "Parameters": {
+          "AccessKey": "",
+          "LogGroup": "/aws/elasticbeanstalk/%%ENVIRONMENT_NAME%%/EBDeploy-Log",
+          "LogStream": "{instance_id}",
+          "Region": "%%REGION%%",
+          "SecretKey": ""
+        }
+      },
+      {
+        "FullName": "AWS.EC2.Windows.CloudWatch.CloudWatchLogsOutput,AWS.EC2.Windows.CloudWatch",
+        "Id": "EBHooksLogGroup",
+        "Parameters": {
+          "AccessKey": "",
+          "LogGroup": "/aws/elasticbeanstalk/%%ENVIRONMENT_NAME%%/EBHooks-Log",
+          "LogStream": "{instance_id}",
+          "Region": "%%REGION%%",
+          "SecretKey": ""
+        }
+      }
+    ],
+    "Flows": {
+      "Flows": [
+        "IISLogs,IISLogGroup",
+        "EBDeployLog,EBDeployLogGroup",
+        "EBHooksLog,EBHooksLogGroup"
+      ]
+    },
+    "PollInterval": "00:00:05"
+  }
+}

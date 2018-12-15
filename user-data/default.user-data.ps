@@ -1,0 +1,14 @@
+<script>
+mkdir c:\cfn
+mkdir c:\cfn\log
+mkdir "c:\Program Files\Amazon\ElasticBeanstalk\Tools"
+:loop
+powershell.exe -Command "(New-Object System.Net.WebClient).DownloadFile('https://s3.dualstack.us-west-2.amazonaws.com/elasticbeanstalk-env-resources-us-west-2/stalks/eb_iis_v1_4.0.4.200428.0/lib/Bootstrap.ps1', 'c:\Program Files\Amazon\ElasticBeanstalk\Tools\Bootstrap.ps1')"
+if %errorlevel% neq 0 goto loop
+:loop2
+powershell.exe -Command "(New-Object System.Net.WebClient).DownloadFile('https://s3.dualstack.us-west-2.amazonaws.com/elasticbeanstalk-env-resources-us-west-2/stalks/eb_iis_v1_4.0.4.200428.0/lib/ServiceActuator.ps1', 'c:\Program Files\Amazon\ElasticBeanstalk\Tools\ServiceActuator.ps1')"
+if %errorlevel% neq 0 goto loop2
+powershell.exe -ExecutionPolicy Bypass -File "C:\Program Files\Amazon\ElasticBeanstalk\Tools\Bootstrap.ps1" us-west-2 arn:aws:cloudformation:us-west-2:435355459201:stack/awseb-e-4jeefghnrd-stack/7d4583f0-a219-11e8-abd6-0a3c8425d484 AWSEBAutoScalingGroup "https://cloudformation-waitcondition-us-west-2.s3-us-west-2.amazonaws.com/arn%3Aaws%3Acloudformation%3Aus-west-2%3A435355459201%3Astack/awseb-e-4jeefghnrd-stack/7d4583f0-a219-11e8-abd6-0a3c8425d484/AWSEBInstanceLaunchWaitHandle?AWSAccessKeyId=AKIAI5ZDPCT4PV2AKKAA&Expires=1534595502&Signature=DyvhjlXhHREQ0dkjEJ8rl9%2BTgcw%3D"
+set /p HANDLE=<c:\cfn\wait-condition-handle.txt
+c:\"Program Files"\Amazon\cfn-bootstrap\cfn-signal -e 0 "%HANDLE%" > c:\cfn\log\cfn-signal-call-log 2>&1
+</script>
