@@ -1,0 +1,5 @@
+https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-windows-user-data.html
+
+
+Cool. Maybe will work
+https://github.com/terraform-providers/terraform-provider-oci/blob/master/docs/examples/compute/windows/userdata/cloudinit.yml
